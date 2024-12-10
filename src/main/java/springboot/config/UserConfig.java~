@@ -1,0 +1,4 @@
+package springboot.configs;
+
+public class UserConfig extends {
+}
