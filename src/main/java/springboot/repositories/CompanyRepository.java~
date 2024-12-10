@@ -1,0 +1,4 @@
+package springboot.repositories;
+
+public interface CompanyRepository extends org.springframework.data.jpa.repository.JpaRepository<springboot.models.Company, java.lang.Long> {
+  }

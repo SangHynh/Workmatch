@@ -2,12 +2,14 @@ package springboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @SpringBootApplication
-public class WorkerManagementApplication {
+@RequestMapping("/api")
+public class WorkManagementApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(WorkerManagementApplication.class, args);
+        SpringApplication.run(WorkManagementApplication.class, args);
     }
 
 }

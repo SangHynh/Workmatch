@@ -1,0 +1,25 @@
+package springboot.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import springboot.models.Candidate;
+
+import java.time.LocalDate;
+import java.util.List;
+
+public interface CandidateRepository extends JpaRepository<Candidate, Long> {
+
+    // Tìm kiếm ứng viên theo email
+    List<Candidate> findByEmail(String email);
+
+    // Tìm kiếm ứng viên theo tên chứa một chuỗi
+    List<Candidate> findByFullNameContainingIgnoreCase(String fullName);
+
+    // Tìm ứng viên theo số điện thoại
+    List<Candidate> findByPhone(String phone);
+
+    // Tìm tất cả ứng viên có ngày sinh trong một khoảng thời gian
+    List<Candidate> findByDobBetween(LocalDate startDate, LocalDate endDate);
+    
+}
