@@ -1,4 +1,4 @@
-spring.application.name=WorkMatch
+spring.application.name=Workmatch
 spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
 spring.datasource.username=root
 spring.datasource.password=123456789
