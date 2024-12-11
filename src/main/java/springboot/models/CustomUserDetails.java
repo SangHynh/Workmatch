@@ -9,14 +9,18 @@ import java.util.Collections;
 public class CustomUserDetails implements UserDetails {
 
     private final User user;
+    private final GrantedAuthority authority; // Single authority per user
 
-    public CustomUserDetails(User user) {
+    // Constructor accepts user and authority
+    public CustomUserDetails(User user, GrantedAuthority authority) {
         this.user = user;
+        this.authority = authority;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(() -> user.getRole().name());
+        // Return a collection with a single authority
+        return Collections.singletonList(authority);
     }
 
     @Override

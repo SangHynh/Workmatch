@@ -1,5 +1,6 @@
 package springboot.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +17,7 @@ public class SecurityConfig {
 
     private final CustomUserDetailsService customUserDetailsService;
 
+    @Autowired
     public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
         this.customUserDetailsService = customUserDetailsService;
     }
@@ -33,21 +35,22 @@ public class SecurityConfig {
                         .disable()
                 )
                 .authorizeRequests(auth -> auth
-                        .requestMatchers("/app/**").permitAll()
-                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
-                        .requestMatchers("/candidate/**").hasAuthority("CANDIDATE")
-                        .requestMatchers("/company/**").hasAuthority("COMPANY")
+                        .requestMatchers("/app/**").permitAll()  // Các trang công khai
+                        .requestMatchers("/admin/**").hasAuthority("ADMIN")  // Chỉ cho phép ADMIN
+                        .requestMatchers("/candidate/**").hasAuthority("CANDIDATE")  // Chỉ cho phép CANDIDATE
+                        .requestMatchers("/company/**").hasAuthority("COMPANY")  // Chỉ cho phép COMPANY
                 )
-                // Cấu hình form login cho từng role
                 .formLogin(form -> form
-                        .loginPage("/login") // Trang login mặc định nếu chưa đăng nhập
+                        .loginPage("/login")
                         .permitAll()
-                        .loginProcessingUrl("/login")  // Xử lý login tại URL này
-                        .defaultSuccessUrl("/home", true)
+                        .loginProcessingUrl("/login")
                         .failureUrl("/login?error=true")
+                        .usernameParameter("email")
+                        .passwordParameter("password")
+                        .successHandler(customSuccessHandler())
                 )
                 .exceptionHandling(exceptions -> exceptions
-                        .accessDeniedPage("/access-denied")
+                        .accessDeniedPage("/public/access-denied")
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
@@ -56,6 +59,7 @@ public class SecurityConfig {
                 .httpBasic();
         return http.build();
     }
+
 
     @Bean
     public AuthenticationManager authManager(HttpSecurity http, PasswordEncoder passwordEncoder) throws Exception {
@@ -66,7 +70,7 @@ public class SecurityConfig {
                 .build();
     }
 
-    // Định nghĩa handler để điều hướng người dùng theo role
+    // Custom handler để điều hướng người dùng theo vai trò
     private AuthenticationSuccessHandler customSuccessHandler() {
         return (request, response, authentication) -> {
             String role = authentication.getAuthorities().stream()
@@ -77,20 +81,20 @@ public class SecurityConfig {
             String redirectUrl;
             switch (role) {
                 case "ADMIN":
-                    redirectUrl = "/admin/home";
+                    redirectUrl = "/admin";
                     break;
                 case "CANDIDATE":
-                    redirectUrl = "/candidate/home";
+                    redirectUrl = "/candidate";
                     break;
                 case "COMPANY":
-                    redirectUrl = "/company/home";
+                    redirectUrl = "/company";
                     break;
                 default:
-                    redirectUrl = "/home";
+                    redirectUrl = "/home"; // Mặc định nếu không có role phù hợp
                     break;
             }
 
-            response.sendRedirect(redirectUrl);
+            response.sendRedirect(redirectUrl); // Chuyển hướng đến URL tương ứng
         };
     }
 }

@@ -1,17 +1,16 @@
 package springboot.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import springboot.enums.Role;
 import springboot.models.RegisterDTO;
 import springboot.models.User;
 import springboot.services.UserService;
 
+@Slf4j
 @Controller
 public class AuthController {
 
@@ -36,13 +35,28 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String handleLogin(String email, String password, Model model) {
-        // Xử lý login tại đây
-        // Nếu login thất bại, có thể trả về trang login với tham số error=true
-        // Ví dụ: nếu email hoặc mật khẩu sai:
-        model.addAttribute("error", "Invalid email or password");
-        return "login"; // Quay lại trang login nếu có lỗi
+    public String handleLogin(@RequestParam String email, @RequestParam String password, Model model) {
+        User user = userService.findByEmail(email);
+
+        if (user == null || !user.getPassword().equals(password)) {
+            model.addAttribute("error", "Invalid username or password.");
+            return "/public/login";
+        }
+
+        model.addAttribute("user", user);
+
+        if (user.getRole() == Role.ADMIN) {
+            return "redirect:/admin";
+        } else if (user.getRole() == Role.COMPANY) {
+            return "redirect:/company";
+        }
+        else if (user.getRole() == Role.CANDIDATE) {
+            return "redirect:/candidate";
+        }
+
+        return "/public/login";
     }
+
 
     @PostMapping("/register/admin")
     public String handleRegister(@ModelAttribute RegisterDTO registerDTO, Model model) {
