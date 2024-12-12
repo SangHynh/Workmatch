@@ -1,4 +1,4 @@
-package springboot.controllers;
+package springboot.controllers.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,5 +28,6 @@ public class AdminController {
     public String candidate(){
         return "admin/pages/candidate";
     }
+
 
 }

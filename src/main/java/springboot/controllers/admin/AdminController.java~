@@ -29,4 +29,9 @@ public class AdminController {
         return "admin/pages/candidate";
     }
 
+    /* Skill management */
+    @RequestMapping("/admin/skill")
+    public String skill(){
+        return "admin/pages/skill";
+    }
 }
