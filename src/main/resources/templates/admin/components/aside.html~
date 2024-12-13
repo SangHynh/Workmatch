@@ -1,4 +1,4 @@
-<aside class="main-sidebar" th:fragment="sidebar">
+<aside class="main-sidebar" th:fragment="sidebar" style="position: fixed; top: 50px">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- Sidebar user panel -->
@@ -28,7 +28,7 @@
 
             <li>
                 <a href="/admin/job">
-                    <i class="fa fa-th"></i> <span>Danh sách việc làm</span>
+                    <i class="fa fa-briefcase"></i> <span>Danh sách việc làm</span>
                     <span class="pull-right-container">
             </span>
                 </a>
@@ -36,7 +36,7 @@
 
             <li>
                 <a href="/admin/skill">
-                    <i class="fa fa-th"></i> <span>Danh sách kỹ năng</span>
+                    <i class="fa fa-lightbulb-o"></i> <span>Danh sách kỹ năng</span>
                     <span class="pull-right-container">
             </span>
                 </a>
@@ -44,7 +44,7 @@
 
             <li>
                 <a href="/admin/company">
-                    <i class="fa fa-th"></i> <span>Danh sách công ty</span>
+                    <i class="fa fa-building"></i> <span>Danh sách công ty</span>
                     <span class="pull-right-container">
             </span>
                 </a>
@@ -52,13 +52,14 @@
 
             <li>
                 <a href="/admin/candidate">
-                    <i class="fa fa-th"></i> <span>Danh sách ứng viên</span>
+                    <i class="fa fa-user"></i> <span>Danh sách ứng viên</span>
                     <span class="pull-right-container">
             </span>
                 </a>
             </li>
 
         </ul>
+
     </section>
     <!-- /.sidebar -->
 </aside>

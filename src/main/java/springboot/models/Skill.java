@@ -1,11 +1,9 @@
 package springboot.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import springboot.enums.SkillType;
 
 @Getter
 @Setter
@@ -14,6 +12,7 @@ import lombok.Setter;
 public class Skill {
     @Id
     @Column(name = "skill_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "skill_description")
@@ -22,7 +21,8 @@ public class Skill {
     @Column(name = "skill_name")
     private String skillName;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "type")
-    private Byte type;
+    private SkillType skillType;
 
 }
