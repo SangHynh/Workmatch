@@ -30,7 +30,7 @@ public class SkillController extends BaseController {
                         @RequestParam("search") Optional<String> searchQuery) {
 
         addUserEmailToModel(model);
-
+        
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(10);
 
