@@ -33,7 +33,4 @@ public class Candidate {
     @JoinColumn(name = "address", nullable = false)
     private Address address;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    private User user;
 }

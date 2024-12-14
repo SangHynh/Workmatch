@@ -155,9 +155,9 @@
             </div>
             <div class="input-group">
                 <label for="company-city">Thành phố</label>
-                <select id="company-city" name="city.id" required>
+                <select id="company-city" name="city" required>
                     <th:block th:each="city : ${cities}">
-                        <option th:value="${city.getId()}" th:text="${city.getName()}"></option>
+                        <option th:value="${city.getName()}" th:text="${city.getName()}"></option>
                     </th:block>
                 </select>
             </div>

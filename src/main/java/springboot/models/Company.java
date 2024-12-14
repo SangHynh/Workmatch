@@ -26,8 +26,12 @@ public class Company {
     @Column(name = "web_url")
     private String webUrl;
 
-//    @OneToOne(fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "address", nullable = false)
-//    private Address address;
+    @Column(name = "address", nullable = false)
+    private String address;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id", nullable = false)
+    private City city;
+
 
 }

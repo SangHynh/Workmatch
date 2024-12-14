@@ -8,11 +8,14 @@ import org.springframework.ui.Model;
 import springboot.dtos.CompanyRegisterDTO;
 import springboot.enums.Role;
 import springboot.dtos.UserRegisterDTO;
-import springboot.models.Address;
+import springboot.models.City;
 import springboot.models.Company;
 import springboot.models.User;
+import springboot.repositories.CityRepository;
 import springboot.services.CompanyService;
 import springboot.services.UserService;
+
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -23,6 +26,9 @@ public class AuthController {
 
     @Autowired
     private CompanyService companyService;
+
+    @Autowired
+    private CityRepository cityRepository;
 
     @GetMapping("/login")
     public String showLoginPage() {
@@ -87,20 +93,22 @@ public class AuthController {
         return "/public/login";
     }
 
-
     @PostMapping("/register/company")
-    public String handleCompanyRegister(@ModelAttribute CompanyRegisterDTO companyRegisterDTO, @ModelAttribute UserRegisterDTO userRegisterDTO, Model model) {
+    public String handleCompanyRegister(@ModelAttribute CompanyRegisterDTO companyRegisterDTO, Model model) {
         // Kiểm tra nếu mật khẩu xác nhận khớp với mật khẩu
         if (!companyRegisterDTO.getPassword().equals(companyRegisterDTO.getConfirmPassword())) {
             model.addAttribute("error", "Passwords do not match.");
-            return "register"; // Quay lại trang đăng ký nếu mật khẩu không khớp
+            return "/public/register/company-register";
         }
+
+        List<City> cities = cityRepository.findAll();
+        model.addAttribute("cities", cities);
 
         // Tạo đối tượng User cho công ty
         User newUser = new User();
         newUser.setEmail(companyRegisterDTO.getEmail());
         newUser.setPassword(companyRegisterDTO.getPassword());
-        newUser.setRole(Role.COMPANY); // Đặt vai trò là COMPANY
+        newUser.setRole(Role.COMPANY);
 
         try {
             // Lưu thông tin người dùng vào cơ sở dữ liệu
@@ -112,10 +120,8 @@ public class AuthController {
             newCompany.setPhone(companyRegisterDTO.getPhone());
             newCompany.setAbout(companyRegisterDTO.getAbout());
             newCompany.setWebUrl(companyRegisterDTO.getWebUrl());
-
-//            // Lấy thông tin địa chỉ từ database
-//            Address address = addressService.findAddressById(companyRegisterDTO.getAddressId());
-//            newCompany.setAddress(address);
+            newCompany.setAddress(companyRegisterDTO.getAddress());
+            newCompany.setCity(companyRegisterDTO.getCity());
 
             // Lưu thông tin công ty vào cơ sở dữ liệu
             companyService.registerCompany(newCompany);
@@ -125,12 +131,13 @@ public class AuthController {
             userService.updateCompanyAccount(newUser);
 
             model.addAttribute("successMessage", "Company registration successful! Please log in.");
-            return "/public/login";
+            //return "/public/login";
+            return "/public/company-register";
 
         } catch (Exception e) {
             // Nếu có lỗi trong quá trình tạo công ty, xóa tài khoản người dùng đã tạo
             System.out.println(e.getMessage());
-//            userService.deleteUser(newUser);
+            userService.deleteUser(newUser);
             model.addAttribute("error", "An error occurred while registering the company.");
             return "/public/company-register";
         }

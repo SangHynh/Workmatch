@@ -10,9 +10,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CompanyRegisterDTO {
+    private String email;
+    private String password;
+    private String confirmPassword;
     private String compName;
     private String phone;
     private String about;
     private String webUrl;
-//    private Long addressId;
+    private String address;
+    private City city;
 }

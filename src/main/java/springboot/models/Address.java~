@@ -1,18 +1,13 @@
 package springboot.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.*;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "address")
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
 public class Address {
     @Id
     @Column(name = "id", nullable = false)
@@ -21,16 +16,9 @@ public class Address {
     @Column(name = "street", length = 150)
     private String street;
 
-    @Column(name = "city", length = 50)
-    private String city;
+    @ManyToOne
+    @JoinColumn(name = "city_id", nullable = false)
+    private City city;
 
-    @Column(name = "country")
-    private Short country;
-
-    @Column(name = "number", length = 20)
-    private String number;
-
-    @Column(name = "zipcode", length = 7)
-    private String zipcode;
 
 }

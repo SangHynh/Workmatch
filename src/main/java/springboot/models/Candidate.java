@@ -29,8 +29,11 @@ public class Candidate {
     @Column(name = "phone", nullable = false, length = 15)
     private String phone;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "address", nullable = false)
-    private Address address;
+    @ManyToOne
+    @JoinColumn(name = "city_id", nullable = false)
+    private City city;
+
+    @Column(name = "address", nullable = false)
+    private String address;
 
 }
