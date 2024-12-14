@@ -1,0 +1,19 @@
+package springboot.controllers.admin;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import springboot.controllers.BaseController;
+
+/* Phần quản lý công ty*/
+
+@Controller
+@RequestMapping("/admin/company")
+public class CompanyController extends BaseController {
+
+    /* Company management */
+    @GetMapping
+    public String company() {
+        return "admin/pages/company";
+    }
+}

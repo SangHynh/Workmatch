@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #fbe8ec;
+            background-color: #f4f7fc;
             margin: 0;
             padding: 0;
             display: flex;
@@ -21,16 +21,18 @@
             background: white;
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            border: 2px solid #e2a0b8;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            border: 1px solid #e2e2e2;
         }
 
         .login-container h2 {
             text-align: center;
-            margin-bottom: 20px;
-            color: #d44b72;
-            font-size: 24px;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 500;
+            color: #333;
         }
 
         .input-group {
@@ -40,38 +42,50 @@
         .input-group label {
             display: block;
             margin-bottom: 8px;
-            font-weight: bold;
-            color: #d44b72;
+            font-size: 14px;
+            font-weight: 600;
+            color: #444;
         }
 
         .input-group input {
             width: 100%;
-            padding: 14px;
-            border-radius: 6px;
-            border: 1px solid #f0a1b8;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
             font-size: 16px;
             color: #333;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
         }
 
         .input-group input:focus {
+            border-color: #6c63ff;
             outline: none;
-            border-color: #d44b72;
         }
 
         .btn-submit {
             width: 100%;
-            padding: 14px;
-            background-color: #d44b72;
+            padding: 15px;
+            background-color: #6c63ff;
             color: white;
             font-size: 16px;
+            font-weight: 500;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
         .btn-submit:hover {
-            background-color: #c03a63;
+            background-color: #5a52d1;
+        }
+
+        .btn-submit:active {
+            background-color: #4a46b1;
+        }
+
+        .login-container:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
 
         .error-message {
@@ -87,14 +101,34 @@
         }
 
         .footer a {
-            color: #d44b72;
+            color: #6c63ff;
             text-decoration: none;
             font-weight: bold;
         }
 
         .footer a:hover {
-            color: #c03a63;
+            color: #5a52d1;
         }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 20px;
+            }
+
+            .login-container h2 {
+                font-size: 24px;
+            }
+
+            .input-group input {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .btn-submit {
+                font-size: 14px;
+            }
+        }
+
 
     </style>
 </head>

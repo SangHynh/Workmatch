@@ -1,4 +1,4 @@
-package springboot.models;
+package springboot.dtos;
 
 
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterDTO {
+public class UserRegisterDTO {
 
     private String email;
     private String password;

@@ -49,9 +49,6 @@ public class SecurityConfig {
                         .passwordParameter("password")
                         .successHandler(customSuccessHandler())
                 )
-                .exceptionHandling(exceptions -> exceptions
-                        .accessDeniedPage("/public/access-denied")
-                )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/")

@@ -6,9 +6,10 @@
     <title>Workmatch</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        /* Đặt font mặc định cho body */
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f4f7fc; /* Nền màu xanh nhẹ nhàng */
+            background-color: #f4f7fc;
             margin: 0;
             padding: 0;
             display: flex;
@@ -17,17 +18,19 @@
             height: 100vh;
         }
 
-        .role-selection-container {
+        /* Container đăng ký với background trắng và các hiệu ứng */
+        .register-container {
             background: white;
             padding: 40px;
             border-radius: 12px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
             border: 1px solid #e2e2e2;
         }
 
-        .role-selection-container h2 {
+        /* Tiêu đề */
+        .register-container h2 {
             text-align: center;
             margin-bottom: 30px;
             font-size: 28px;
@@ -35,6 +38,7 @@
             color: #333;
         }
 
+        /* Nhóm input: label + input */
         .input-group {
             margin-bottom: 20px;
         }
@@ -47,7 +51,7 @@
             color: #444;
         }
 
-        .input-group select {
+        .input-group input {
             width: 100%;
             padding: 12px;
             border-radius: 8px;
@@ -58,11 +62,12 @@
             transition: border-color 0.3s ease;
         }
 
-        .input-group select:focus {
+        .input-group input:focus {
             border-color: #6c63ff;
             outline: none;
         }
 
+        /* Nút submit */
         .btn-submit {
             width: 100%;
             padding: 15px;
@@ -84,21 +89,22 @@
             background-color: #4a46b1;
         }
 
-        .role-selection-container:hover {
+        /* Hiệu ứng hover cho container */
+        .register-container:hover {
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
 
-        /* Thiết kế responsive cho màn hình nhỏ */
+        /* Đảm bảo các phần tử không bị tràn khi trên màn hình nhỏ */
         @media (max-width: 480px) {
-            .role-selection-container {
+            .register-container {
                 padding: 20px;
             }
 
-            .role-selection-container h2 {
+            .register-container h2 {
                 font-size: 24px;
             }
 
-            .input-group select {
+            .input-group input {
                 padding: 10px;
                 font-size: 14px;
             }
@@ -108,49 +114,41 @@
             }
         }
     </style>
+
+    <script>
+        var successMessage = /*[[${successMessage}]]*/ null;
+        if (successMessage) {
+            alert(successMessage);
+            window.location.href = "/login";
+        }
+    </script>
+
 </head>
 <body>
 
-<div class="pre-register-container">
-    <h2>Role Selection</h2>
-    <form id="pre-register-form">
+
+
+<div class="register-container">
+    <h2>Đăng ký tài khoản</h2>
+    <form action="#" th:action="@{/register/admin}" th:object="${user}" method="post">
         <div class="input-group">
-            <label for="role">What is your role?</label>
-            <select id="role" name="role" required>
-                <option value="">Select a role</option>
-                <option value="admin">Admin</option>
-                <option value="candidate">Candidate</option>
-                <option value="company">Company</option>
-            </select>
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" th:field="*{email}" required>
         </div>
 
-        <button type="submit" class="btn-submit">Select and Continue</button>
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" th:field="*{password}" required>
+        </div>
+
+        <div class="input-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" name="confirmPassword" required>
+        </div>
+
+        <button type="submit" class="btn-submit">Register</button>
     </form>
 </div>
-
-<script>
-    document.getElementById('pre-register-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const role = document.getElementById('role').value;
-
-        if (!role) {
-            alert("Please select a role!");
-            return;
-        }
-
-        let route = '/register';
-        if (role === 'admin') {
-            route = '/register/admin';
-        } else if (role === 'candidate') {
-            route = '/register/candidate';
-        } else if (role === 'company') {
-            route = '/register/company';
-        }
-
-        window.location.href = route;
-    });
-</script>
 
 </body>
 </html>

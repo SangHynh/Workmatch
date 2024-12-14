@@ -29,4 +29,18 @@ public class UserService {
     public User findByEmail(String email) {
         return userRepository.findByEmail(email).orElse(null);
     }
+
+    // Delete a user by ID
+    public void deleteUser(User user) {
+        userRepository.delete(user);
+    }
+
+    // Update user's company account
+    public void updateCompanyAccount(User user) {
+        if (user != null && user.getCompany() != null) {
+            userRepository.updateCompanyAccount(user.getId(), user.getCompany());
+        } else {
+            throw new IllegalArgumentException("User or linked company cannot be null");
+        }
+    }
 }

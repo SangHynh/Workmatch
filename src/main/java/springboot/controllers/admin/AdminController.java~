@@ -24,7 +24,7 @@ public class AdminController extends BaseController {
         return "admin/pages/job";
     }
 
-
+    
 
 
 

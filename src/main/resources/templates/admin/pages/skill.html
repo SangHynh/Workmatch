@@ -55,7 +55,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="skill : ${skillPage.content}">
+                        <tr th:each="skill, iterStat : ${skillPage.content}"
+                            th:attr="style=${iterStat.index % 2 == 0} ? 'background-color: #f9f9f9;' : 'background-color: #ffffff;'">
                             <td th:text="${skill.id}"></td>
                             <td th:text="${skill.skillName}"></td>
                             <td th:text="${skill.skillType}"></td>
@@ -88,7 +89,6 @@
                             </li>
                         </ul>
                     </div>
-
                 </div>
             </div>
             <!-- /.box -->

@@ -16,6 +16,8 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/*Phần quản lý kỹ năng*/
+
 @Controller
 @RequestMapping("/admin/skill")
 public class SkillController extends BaseController {
