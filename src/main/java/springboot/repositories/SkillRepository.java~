@@ -1,4 +1,9 @@
 package springboot.repositories;
 
-public interface SkillRepository extends org.springframework.data.jpa.repository.JpaRepository<springboot.models.Skill, java.lang.Long> {
-  }
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import springboot.models.Skill;
+
+public interface SkillRepository extends JpaRepository<Skill, Long> {
+}

@@ -28,7 +28,7 @@ public class SkillController {
                         @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(10);
-        Page<Skill> skillPage = skillService.getAllSkills(currentPage - 1, pageSize,"id", "asc");
+        Page<Skill> skillPage = skillService.getAllSkills(currentPage+1, pageSize,"id", "asc");
         model.addAttribute("skillPage", skillPage);
         int totalPages = skillPage.getTotalPages();
         if (totalPages > 0) {

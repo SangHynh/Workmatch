@@ -1,6 +1,10 @@
 package springboot.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import springboot.models.Skill;
 import springboot.repositories.SkillRepository;
@@ -14,9 +18,14 @@ public class SkillService {
     private SkillRepository skillRepository;
 
     /* Get all skill */
-    public List<Skill> getAllSkills() {
-        return skillRepository.findAll();
+    public Page<Skill> getAllSkills(int pageNo, int pageSize, String sortBy,
+                                    String sortDirection) {
+        Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+        return skillRepository.findAll(pageable);
     }
+
+
 
     /* Save skill */
     public void saveSkill(Skill skill) {
