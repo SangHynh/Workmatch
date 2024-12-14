@@ -24,12 +24,22 @@ public class SkillController {
 
     /* Get list skills */
     @GetMapping
-    public String skill(Model model,@RequestParam("page") Optional<Integer> page,
-                        @RequestParam("size") Optional<Integer> size) {
+    public String skill(Model model, @RequestParam("page") Optional<Integer> page,
+                        @RequestParam("size") Optional<Integer> size,
+                        @RequestParam("search") Optional<String> searchQuery) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(10);
-        Page<Skill> skillPage = skillService.getAllSkills(currentPage - 1, pageSize,"id", "asc");
+
+        // Nếu có query tìm kiếm, gọi phương thức tìm kiếm
+        Page<Skill> skillPage;
+        if (searchQuery.isPresent() && !searchQuery.get().isEmpty()) {
+            skillPage = skillService.searchSkills(searchQuery.get(), currentPage - 1, pageSize, "id", "asc");
+        } else {
+            skillPage = skillService.getAllSkills(currentPage - 1, pageSize, "id", "asc");
+        }
+
         model.addAttribute("skillPage", skillPage);
+
         int totalPages = skillPage.getTotalPages();
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
@@ -38,8 +48,11 @@ public class SkillController {
             model.addAttribute("pageNumbers", pageNumbers);
         }
 
+        model.addAttribute("searchQuery", searchQuery.orElse(""));  // Lưu lại giá trị tìm kiếm vào model
+
         return "admin/pages/skill";
     }
+
 
     /* Add skill */
     @PostMapping("/add")

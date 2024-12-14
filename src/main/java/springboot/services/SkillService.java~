@@ -25,12 +25,7 @@ public class SkillService {
         return skillRepository.findAll(pageable);
     }
 
-    /* Search skill */
-    public Page<Skill> searchSkills(String searchQuery, int pageNo, int pageSize, String sortBy, String sortDirection) {
-        Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
-        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
-        return skillRepository.findBySkillNameContainingOrSkillDescriptionContaining(searchQuery, searchQuery, pageable);
-    }
+
 
     /* Save skill */
     public void saveSkill(Skill skill) {

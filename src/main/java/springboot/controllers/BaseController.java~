@@ -1,0 +1,4 @@
+package springboot.controllers;
+
+public class BaseController {
+}
