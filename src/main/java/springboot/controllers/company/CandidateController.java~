@@ -1,0 +1,4 @@
+package springboot.controllers.company;
+
+public class CandidateController {
+}

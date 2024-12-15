@@ -38,5 +38,22 @@ public class BaseController {
             model.addAttribute("user", user); // Thêm người dùng vào model nếu không phải công ty
         }
     }
+
+
+    // Phương thức này sẽ lấy thông tin đầy đủ người dùng và công ty của họ nếu có
+    protected Long getCompanyIdFromUser() {
+        // Lấy đối tượng UserDetails hiện tại từ SecurityContext
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String email = userDetails.getUsername();
+
+        // Tìm người dùng theo email
+        User user = userService.findByEmail(email);
+
+        // Nếu người dùng có vai trò là công ty, trả về companyId
+        if (user != null && user.isCompany()) {
+            return user.getCompany() != null ? user.getCompany().getId() : null;
+        }
+        return null;
+    }
     
 }

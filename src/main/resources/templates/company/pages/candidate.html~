@@ -26,15 +26,11 @@
                     <!-- Input tìm kiếm và nút tìm kiếm -->
                     <div style="display: flex; align-items: center; width: 100%; margin-right: 50px;">
                         <form action="" method="get" style="width: 100%; display: flex;">
-                            <input type="text" name="search" th:value="${searchQuery}" placeholder="Tìm kiếm..."
+                            <input type="text" name="search" th:value="${searchQuery}" placeholder="Tìm kiếm công việc..."
                                    style="padding: 8px 12px; margin-right: 10px; border-radius: 4px; border: 1px solid #ddd; flex-grow: 1;">
                             <button type="submit" class="btn btn-primary" style="padding: 8px 12px; border-radius: 4px;">
                                 <i class="fas fa-search"></i> Tìm kiếm
                             </button>
-                            <select name="city" th:value="${selectedCity}" style="padding: 8px 12px; margin-left: 10px; border-radius: 4px; border: 1px solid #ddd;">
-                                <option value="">Chọn thành phố</option>
-                                <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.name}"></option>
-                            </select>
                         </form>
                     </div>
                 </div>
@@ -45,56 +41,48 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Tên ứng viên</th>
-                            <th>Số điện thoại</th>
-                            <th>Email</th>
-                            <th>Địa chỉ</th>
-                            <th>Thành phố</th>
-                            <th>Ngày sinh</th>
+                            <th>Tên công việc</th>
+                            <th>Mô tả công việc</th>
+                            <th>Công ty</th>
                             <th>Hành động</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <!-- Kiểm tra nếu danh sách công ty trống -->
-                        <tr th:if="${candidatePage.content.isEmpty()}">
-                            <td colspan="5" style="text-align: center;">Không có ứng viên nào được tìm thấy.</td>
+                        <!-- Kiểm tra nếu danh sách công việc trống -->
+                        <tr th:if="${jobPage.content.isEmpty()}">
+                            <td colspan="5" style="text-align: center;">Không có công việc nào được tìm thấy.</td>
                         </tr>
-                        <!-- Lặp qua danh sách công ty -->
-                        <tr th:each="candidate, iterStat : ${candidatePage.content}"
+                        <!-- Lặp qua danh sách công việc -->
+                        <tr th:each="job, iterStat : ${jobPage.content}"
                             th:attr="style=${iterStat.index % 2 == 0} ? 'background-color: #f9f9f9;' : 'background-color: #ffffff;'">
-                            <td th:text="${candidate.id}"></td>
-                            <td th:text="${candidate.fullName}"></td>
-                            <td th:text="${candidate.phone}"></td>
-                            <td><a th:href="'mailto:' + ${candidate.email}" th:text="${candidate.email}"> </a></td>
-                            <td th:text="${candidate.address}"></td>
-                            <td th:text="${candidate.city.name}"></td>
-                            <td th:text="${candidate.dob}"></td>
+                            <td th:text="${job.id}"></td>
+                            <td th:text="${job.jobName}"></td>
+                            <td th:text="${job.jobDesc}"></td>
+                            <td th:text="${job.company.compName}"></td>
                             <td>
-                                <button class="btn btn-primary" onclick="disableCandidate()">Xem chi tiết</button>
-                                <button class="btn btn-default" onclick="disableCandidate()">Gửi mail</button>
+                                <button class="btn btn-primary" onclick="viewJobDetails()">Xem chi tiết</button>
                             </td>
                         </tr>
-
                         </tbody>
-
                     </table>
 
                     <!-- Phân trang -->
                     <div style="display: flex; justify-content: center; margin-top: 20px;">
                         <ul style="list-style: none; padding: 0; display: flex;">
                             <li th:each="pageNum : ${pageNumbers}"
-                                th:classappend="${pageNum == candidatePage.number + 1} ? 'active'"
+                                th:classappend="${pageNum == jobPage.number + 1} ? 'active'"
                                 style="margin: 0 5px;">
                                 <a th:href="@{'?page=' + ${pageNum} + '&search=' + ${searchQuery}}"
                                    th:text="${pageNum}"
                                    style="padding: 8px 12px; text-decoration: none; color: #007bff; border: 1px solid #ddd; border-radius: 4px;"
-                                   th:styleappend="${pageNum == candidatePage.number + 1} ? '; background-color: #007bff; color: #fff;' : ''">
+                                   th:styleappend="${pageNum == jobPage.number + 1} ? '; background-color: #007bff; color: #fff;' : ''">
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
+
             <!-- /.box -->
         </section>
         <!-- /.content -->
@@ -106,7 +94,11 @@
 <div th:replace="company/components/scripts :: scripts"></div>
 
 <script>
-    function disableCandidate() {
+    function sendMailToCandidate() {
+        alert("Đang phát triển!");
+    }
+
+    function detailCandidate() {
         alert("Đang phát triển!");
     }
 </script>

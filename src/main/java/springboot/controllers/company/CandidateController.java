@@ -5,8 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import springboot.controllers.BaseController;
 import springboot.models.Candidate;
@@ -20,36 +18,20 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@Controller("companyCompanyController")
-@RequestMapping("/company")
-public class CompanyController extends BaseController {
-
-
-    @Autowired
-    private CityService cityService;
+@Controller
+public class CandidateController extends BaseController {
 
     @Autowired
     private CandidateService candidateService;
 
     @Autowired
+    private CityService cityService;
+
+    @Autowired
     private UserService userService;
 
-    @GetMapping("")
-    public String company(Model model) {
-        addUserAndCompanyToModel(model);
-        addUserEmailToModel(model);
-        return "company/index";
-    }
-
-    /* Job management */
-    @GetMapping("/job")
-    public String job(Model model) {
-        addUserEmailToModel(model);
-        return "company/pages/job";
-    }
-
     /* Candidate management */
-    @GetMapping("/candidate")
+    @GetMapping("/company/candidate")
     public String candidate(Model model, @RequestParam("page") Optional<Integer> page,
                             @RequestParam("size") Optional<Integer> size,
                             @RequestParam("search") Optional<String> searchQuery,
@@ -93,6 +75,7 @@ public class CompanyController extends BaseController {
         model.addAttribute("searchQuery", searchQuery.orElse(""));
         model.addAttribute("selectedCity", city.orElse(null));
 
-        return "admin/pages/candidate";
+        return "company/pages/candidate";
     }
+
 }

@@ -10,10 +10,11 @@ import lombok.Setter;
 @Table(name = "job")
 public class Job {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  // Thêm annotation này
     @Column(name = "job_id", nullable = false)
     private Long id;
 
-    @Column(name = "job_desc", nullable = false, length = 2000)
+    @Column(name = "job_desc", nullable = false)
     private String jobDesc;
 
     @Column(name = "job_name", nullable = false)

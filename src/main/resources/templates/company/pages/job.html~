@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 
-<head th:replace="admin/components/head :: head"></head>
+<head th:replace="company/components/head :: head"></head>
 
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
 
-    <header th:replace="admin/components/header :: header"></header>
+    <header th:replace="company/components/header :: header"></header>
 
-    <aside th:replace="admin/components/aside :: aside"></aside>
+    <aside th:replace="company/components/aside :: aside"></aside>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" style="margin-top: 50px">
@@ -24,12 +24,69 @@
         <!-- Main content -->
         <section class="content">
 
-            <!-- Default box -->
             <div class="box">
+                <div class="box-header" style="display: flex; justify-content: space-between; align-items: end;">
+                    <!-- Nút thêm job -->
+                    <button class="btn btn-success" onclick="openAddJobForm()" style="padding: 8px 12px; border-radius: 4px; margin-left: auto;">
+                        <i class="fas fa-plus-circle"></i> Đăng tuyển việc làm
+                    </button>
+                </div>
+
+                <!--box-body-->
                 <div class="box-body">
-                    Start creating your amazing application!
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên công việc</th>
+                            <th>Mô tả công việc</th>
+                            <th>Công ty</th>
+                            <th>Hành động</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Kiểm tra nếu danh sách công việc trống -->
+                        <tr th:if="${jobPage.content.isEmpty()}">
+                            <td colspan="5" style="text-align: center;">Không có công việc nào được tìm thấy.</td>
+                        </tr>
+                        <!-- Lặp qua danh sách công việc -->
+                        <tr th:each="job, iterStat : ${jobPage.content}"
+                            th:attr="style=${iterStat.index % 2 == 0} ? 'background-color: #f9f9f9;' : 'background-color: #ffffff;'">
+                            <td th:text="${job.id}"></td>
+                            <td th:text="${job.jobName}"></td>
+                            <td th:text="${job.jobDesc}"></td>
+                            <td th:text="${job.company.compName}"></td>
+                            <td>
+                                <button class="btn btn-primary"
+                                        th:attr="onclick='openEditJobForm(' + ${job.id} + ', \'' + ${job.jobName} + '\', \'' + ${job.jobDesc} + '\', ' + ${job.company.id} + ')'">
+                                    Chỉnh sửa
+                                </button>
+
+                                <button class="btn btn-danger" th:attr="onclick='confirmDelete(' + ${job.id} + ')'">
+                                    Xóa
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Phân trang -->
+                    <div style="display: flex; justify-content: center; margin-top: 20px;">
+                        <ul style="list-style: none; padding: 0; display: flex;">
+                            <li th:each="pageNum : ${pageNumbers}"
+                                th:classappend="${pageNum == jobPage.number + 1} ? 'active'"
+                                style="margin: 0 5px;">
+                                <a th:href="@{'?page=' + ${pageNum} + '&search=' + ${searchQuery}}"
+                                   th:text="${pageNum}"
+                                   style="padding: 8px 12px; text-decoration: none; color: #007bff; border: 1px solid #ddd; border-radius: 4px;"
+                                   th:styleappend="${pageNum == jobPage.number + 1} ? '; background-color: #007bff; color: #fff;' : ''">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+
             <!-- /.box -->
         </section>
         <!-- /.content -->
@@ -38,7 +95,100 @@
 
 </div>
 
-<div th:replace="admin/components/scripts :: scripts"></div>
+
+<!-- Modal for Add Job -->
+<div id="addJobModal" class="modal" style="display:none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- Button to close the modal -->
+                <button type="button" class="close" onclick="closeAddJobForm()">&times;</button>
+                <h4 class="modal-title">Đăng Việc Làm</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addJobForm" th:action="@{/company/job/add}" method="post">
+                    <div class="form-group">
+                        <label for="jobName">Tên Công việc:</label>
+                        <input type="text" class="form-control" id="jobName" name="jobName"
+                               placeholder="Nhập tên công viêc" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="jobDesc">Mô tả công việc:</label>
+                        <textarea class="form-control" id="jobDesc" name="jobDesc"
+                                  rows="8"
+                                  placeholder="Nhập mô tả công việc"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Lưu</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal for Edit Job -->
+<div id="editJobModal" class="modal" style="display:none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="closeEditJobForm()">&times;</button>
+                <h4 class="modal-title">Cập Nhật Việc Làm</h4>
+            </div>
+            <div class="modal-body">
+                <form id="updateJobForm" th:action="@{/company/job/update}" method="post">
+                    <input type="hidden" id="jobId" name="id"> <!-- Thêm trường id để xác định công việc cần cập nhật -->
+                    <input type="hidden" id="companyId" name="companyId">
+                    <div class="form-group">
+                        <label for="updateJobName">Tên Công việc:</label>
+                        <input type="text" class="form-control" id="updateJobName" name="jobName"
+                               placeholder="Nhập tên công viêc" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="updateJobDesc">Mô tả công việc:</label>
+                        <textarea class="form-control" id="updateJobDesc" name="jobDesc"
+                                  rows="8" placeholder="Nhập mô tả công việc"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Lưu</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="company/components/scripts :: scripts"></div>
+
+<script>
+    function openAddJobForm() {
+        document.getElementById('addJobModal').style.display = 'block';
+    }
+
+    function closeAddJobForm() {
+        document.getElementById('addJobModal').style.display = 'none';
+    }
+
+    function openEditJobForm(jobId, jobName, jobDesc, companyId) {
+        console.log("companyId: ", companyId); // Kiểm tra giá trị companyId
+        document.getElementById('editJobModal').style.display = 'block';
+        document.getElementById('jobId').value = jobId;
+        document.getElementById('updateJobName').value = jobName;
+        document.getElementById('updateJobDesc').value = jobDesc;
+        document.getElementById('companyId').value = companyId; // Điền giá trị companyId vào form
+    }
+
+
+    function closeEditJobForm() {
+        // Đóng modal chỉnh sửa công việc
+        document.getElementById('editJobModal').style.display = 'none';
+    }
+
+    function confirmDelete(jobId) {
+        // Xác nhận xóa công việc
+        if (confirm('Bạn có chắc muốn xóa công việc này không?')) {
+            // Xử lý xóa công việc ở backend
+            window.location.href = '/company/job/delete/' + jobId;  // Đảm bảo URL đúng
+        }
+    }
+</script>
 
 </body>
 </html>
