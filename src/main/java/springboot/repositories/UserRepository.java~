@@ -15,5 +15,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Transactional
     @Query("UPDATE User u SET u.company = :company WHERE u.id = :userId")
     void updateCompanyAccount(Long userId, springboot.models.Company company);
-    
+
+    // Truy vấn qua companyId để lấy email của user
+    User findByCompanyId(Long companyId);
+
+
 }

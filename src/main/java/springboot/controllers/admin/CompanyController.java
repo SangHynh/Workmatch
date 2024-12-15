@@ -10,6 +10,8 @@ import springboot.models.City;
 import springboot.models.Company;
 import springboot.services.CityService;
 import springboot.services.CompanyService;
+import springboot.services.UserService;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,6 +24,9 @@ public class CompanyController extends BaseController {
 
     @Autowired
     private CompanyService companyService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private CityService cityService;
@@ -52,6 +57,12 @@ public class CompanyController extends BaseController {
             companyPage = companyService.getCompaniesByCity(city.get(), currentPage - 1, pageSize, "id", "asc");
         } else {
             companyPage = companyService.getAllCompanies(currentPage - 1, pageSize, "id", "asc");
+        }
+
+        // Lấy email cho từng công ty
+        for (Company company : companyPage) {
+            String email = userService.getEmailByCompanyId(company.getId()); // Lấy email của công ty
+            company.setEmail(email);  // Gán email vào company
         }
 
         model.addAttribute("companyPage", companyPage);

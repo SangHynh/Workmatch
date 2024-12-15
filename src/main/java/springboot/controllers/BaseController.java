@@ -14,4 +14,5 @@ public class BaseController {
         String email = userDetails.getUsername();
         model.addAttribute("userEmail", email);
     }
+
 }

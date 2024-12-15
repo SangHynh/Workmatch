@@ -37,5 +37,6 @@ public class Company {
     @JoinColumn(name = "city_id", nullable = false)
     private City city;
 
-
+    @Transient // Không lưu vào cơ sở dữ liệu
+    private String email;
 }

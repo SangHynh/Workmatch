@@ -15,7 +15,7 @@ import springboot.repositories.UserRepository;
 public class CompanyService {
 
     private final CompanyRepository companyRepository;
-    
+
     private final UserRepository userRepository;
 
     @Autowired
@@ -42,14 +42,6 @@ public class CompanyService {
         Pageable pageable = PageRequest.of(page, size, sort);
         return companyRepository.findByCompNameContainingIgnoreCaseOrAddressContainingIgnoreCase(keyword, keyword, pageable);
     }
-
-    // Lọc công ty theo thành phố
-    public Page<Company> getCompaniesByCity(Long cityId, int page, int size, String sortBy, String sortDirection) {
-        Sort sort = sortDirection.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-        Pageable pageable = PageRequest.of(page, size, sort);
-        return companyRepository.findByCityId(cityId, pageable);
-    }
-
 
 
 

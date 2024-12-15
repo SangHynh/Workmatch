@@ -15,7 +15,7 @@ import springboot.repositories.UserRepository;
 public class CompanyService {
 
     private final CompanyRepository companyRepository;
-    
+
     private final UserRepository userRepository;
 
     @Autowired

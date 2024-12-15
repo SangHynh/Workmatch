@@ -37,11 +37,18 @@ public class UserService {
 
     // Update user's company account
     public void updateCompanyAccount(User user) {
-        // Ensure the user and company are not null
         if (user != null && user.getCompany() != null) {
             userRepository.updateCompanyAccount(user.getId(), user.getCompany());
         } else {
             throw new IllegalArgumentException("User or linked company cannot be null");
         }
     }
+
+    // Get email by company ID
+    public String getEmailByCompanyId(Long companyId) {
+        // Tìm User dựa trên company_id và role = COMPANY
+        User user = userRepository.findByCompanyIdAndRole(companyId, Role.COMPANY);
+        return user != null ? user.getEmail() : null;
+    }
+
 }

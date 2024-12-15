@@ -31,6 +31,10 @@
                             <button type="submit" class="btn btn-primary" style="padding: 8px 12px; border-radius: 4px;">
                                 <i class="fas fa-search"></i> Tìm kiếm
                             </button>
+                            <select name="city" th:value="${selectedCity}" style="padding: 8px 12px; margin-left: 10px; border-radius: 4px; border: 1px solid #ddd;">
+                                <option value="">Chọn thành phố</option>
+                                <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.name}"></option>
+                            </select>
                         </form>
                     </div>
                 </div>
@@ -40,13 +44,15 @@
                     <table class="table table-bordered">
                         <thead>
                         <tr>
-                            <th>Mã công ty</th>
+                            <th>ID</th>
                             <th>Tên công ty</th>
                             <th>Số điện thoại</th>
+                            <th>Email</th>
                             <th>Website</th>
                             <th>Địa chỉ</th>
                             <th>Thành phố</th>
                             <th>Mô tả</th>
+                            <th>Hành động</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -60,12 +66,16 @@
                             <td th:text="${company.id}"></td>
                             <td th:text="${company.compName}"></td>
                             <td th:text="${company.phone}"></td>
+                            <td >aaa</td>
                             <td>
                                 <a th:href="@{${company.webUrl}}" target="_blank" th:text="${company.webUrl}"></a>
                             </td>
                             <td th:text="${company.address}"></td>
                             <td th:text="${company.city.name}"></td>
                             <td th:text="${company.about}"></td>
+                            <td>
+                                <button class="btn btn-danger" onclick="disableCompany()">Vô hiệu hoá</button> <!-- Nút vô hiệu hoá -->
+                            </td>
                         </tr>
 
                         </tbody>
@@ -97,6 +107,12 @@
 
 
 <div th:replace="admin/components/scripts :: scripts"></div>
+
+<script>
+    function disableCompany() {
+        alert("Đang phát triển!");
+    }
+</script>
 
 </body>
 

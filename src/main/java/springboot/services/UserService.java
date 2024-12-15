@@ -43,4 +43,12 @@ public class UserService {
             throw new IllegalArgumentException("User or linked company cannot be null");
         }
     }
+
+    // Lấy email của User bằng companyId
+    public String getEmailByCompanyId(Long companyId) {
+        // Lấy email của User qua companyId
+        return userRepository.findEmailByCompanyId(companyId);
+    }
+
+
 }
