@@ -3,6 +3,7 @@ package springboot.models;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import springboot.enums.SkillLevel;
 import springboot.ids.JobSkillId;
 
 @Getter
@@ -27,6 +28,7 @@ public class JobSkill {
     private String moreInfos;
 
     @Column(name = "skill_level", nullable = false)
-    private Byte skillLevel;
+    @Enumerated(EnumType.STRING)
+    private SkillLevel skillLevel;
 
 }

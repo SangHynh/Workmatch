@@ -93,6 +93,6 @@ public class CompanyController extends BaseController {
         model.addAttribute("searchQuery", searchQuery.orElse(""));
         model.addAttribute("selectedCity", city.orElse(null));
 
-        return "company/pages/candidate";
+        return "admin/pages/candidate";
     }
 }
