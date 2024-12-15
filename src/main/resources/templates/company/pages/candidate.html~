@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 
-<head th:replace="admin/components/head :: head"></head>
+<head th:replace="company/components/head :: head"></head>
 
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
 
-    <header th:replace="admin/components/header :: header"></header>
+    <header th:replace="company/components/header :: header"></header>
 
-    <aside th:replace="admin/components/aside :: aside"></aside>
+    <aside th:replace="company/components/aside :: aside"></aside>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" style="margin-top: 50px">
@@ -70,7 +70,8 @@
                             <td th:text="${candidate.city.name}"></td>
                             <td th:text="${candidate.dob}"></td>
                             <td>
-                                <button class="btn btn-danger" onclick="disableCandidate()">Vô hiệu hoá</button> <!-- Nút vô hiệu hoá -->
+                                <button class="btn btn-primary" onclick="disableCandidate()">Xem chi tiết</button>
+                                <button class="btn btn-default" onclick="disableCandidate()">Gửi mail</button>
                             </td>
                         </tr>
 
@@ -102,7 +103,7 @@
 </div>
 
 
-<div th:replace="admin/components/scripts :: scripts"></div>
+<div th:replace="company/components/scripts :: scripts"></div>
 
 <script>
     function disableCandidate() {

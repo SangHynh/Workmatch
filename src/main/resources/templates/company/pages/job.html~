@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 
-<head th:replace="company/components/head :: head"></head>
+<head th:replace="admin/components/head :: head"></head>
 
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
 
-    <header th:replace="company/components/header :: header"></header>
+    <header th:replace="admin/components/header :: header"></header>
 
-    <aside th:replace="company/components/aside :: aside"></aside>
+    <aside th:replace="admin/components/aside :: aside"></aside>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" style="margin-top: 50px">
@@ -38,7 +38,7 @@
 
 </div>
 
-<div th:replace="company/components/scripts :: scripts"></div>
+<div th:replace="admin/components/scripts :: scripts"></div>
 
 </body>
 </html>
