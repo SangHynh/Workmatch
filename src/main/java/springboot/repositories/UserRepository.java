@@ -26,6 +26,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("SELECT u.email FROM User u WHERE u.company.id = :companyId AND u.role = springboot.enums.Role.COMPANY")
     String findEmailByCompanyId(Long companyId);
 
+    // Truy vấn qua candidateId để lấy email của user
+    @Query("SELECT u.email FROM User u WHERE u.candidate.id = :candidateId AND u.role = springboot.enums.Role.CANDIDATE")
+    String findEmailByCandidateId(Long candidateId);
+
     boolean existsByEmail(String email);
 
 }

@@ -65,5 +65,9 @@ public class UserService {
         return userRepository.findEmailByCompanyId(companyId);
     }
 
-
+    // Lấy email của User bằng candidateId
+    public String getEmailByCandidateId(Long candidateId) {
+        // Lấy email của User qua companyId
+        return userRepository.findEmailByCandidateId(candidateId);
+    }
 }

@@ -151,7 +151,9 @@
         <div class="step step-3 hidden">
             <div class="input-group">
                 <label for="phone">Số điện thoại</label>
-                <input id="phone" name="phone" required />
+                <input type="tel" id="phone" name="phone" required
+                       pattern="[\+]?[0-9]{1,4}[0-9]{6,14}"
+                />
             </div>
             <div class="input-group">
                 <label for="city">Thành phố</label>

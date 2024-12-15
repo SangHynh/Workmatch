@@ -151,7 +151,7 @@
         <div class="step step-3 hidden">
             <div class="input-group">
                 <label for="company-phone">Số điện thoại</label>
-                <input id="company-phone" name="phone" required />
+                <input type="tel" id="company-phone" name="phone" required />
             </div>
             <div class="input-group">
                 <label for="company-city">Thành phố</label>
@@ -208,6 +208,19 @@
 
     nextBtn.forEach(button => button.addEventListener('click', () => {
         const currentStepElement = steps[currentStep];
+
+        // Kiểm tra mật khẩu khớp nếu đang ở bước 1
+        if (currentStep === 0) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            if (password !== confirmPassword) {
+                alert("Mật khẩu và nhập lại mật khẩu không khớp. Vui lòng kiểm tra lại.");
+                return;
+            }
+        }
+
+        // Kiểm tra các trường dữ liệu nếu không phải bước 1
         if (validateStep(currentStepElement)) {
             if (currentStep < steps.length - 1) {
                 currentStep++;
@@ -217,6 +230,7 @@
             alert("Vui lòng điền vào đầy đủ.");
         }
     }));
+
 
     prevBtn[0].addEventListener('click', () => {
         if (currentStep > 0) {

@@ -34,4 +34,7 @@ public class Candidate {
     @Column(name = "address", nullable = false)
     private String address;
 
+    @Transient // Không lưu vào cơ sở dữ liệu
+    private String email;
+
 }
