@@ -17,6 +17,10 @@ public class SkillService {
     @Autowired
     private SkillRepository skillRepository;
 
+    public List<Skill> getAllSkills() {
+        return skillRepository.findAll();
+    }
+
     /* Get all skill */
     public Page<Skill> getAllSkills(int pageNo, int pageSize, String sortBy,
                                     String sortDirection) {

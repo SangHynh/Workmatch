@@ -6,7 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import springboot.models.Company;
 import springboot.services.CityService;
+import springboot.services.CompanyService;
+import springboot.services.SkillService;
+
+import java.util.List;
 
 @Controller
 @SpringBootApplication
@@ -17,13 +22,23 @@ public class WorkMatchApplication {
     }
 
     @Autowired
-    private CityService cityService;  // City service để gọi phương thức getAllCities()
+    private CityService cityService;
 
+    @Autowired
+    private SkillService skillService;
+
+    @Autowired
+    private CompanyService companyService;
 
     @RequestMapping("/")
     public String index(Model model) {
+        model.addAttribute("skills", skillService.getAllSkills());
         model.addAttribute("cities", cityService.getAllCities());
-        return "index";  // Trả về view 'index'
+
+        List<Company> randomCompanies = companyService.getRandomCompanies();
+        model.addAttribute("randomCompanies", randomCompanies);
+
+        return "index";
     }
 
 }

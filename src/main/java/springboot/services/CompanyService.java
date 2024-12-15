@@ -11,6 +11,8 @@ import springboot.models.User;
 import springboot.repositories.CompanyRepository;
 import springboot.repositories.UserRepository;
 
+import java.util.List;
+
 @Service
 public class CompanyService {
 
@@ -57,6 +59,11 @@ public class CompanyService {
         return companyRepository.findByCompNameContainingIgnoreCaseAndCityId(keyword, cityId, pageable);
     }
 
+    // Lấy danh sách ngẫu nhiên 6 công ty
+    public List<Company> getRandomCompanies() {
+        List<Company> companies = companyRepository.findRandomCompanies(6);
+        return companies.isEmpty() ? companies : companies.subList(0, Math.min(companies.size(), 6));
+    }
 
 
 

@@ -99,6 +99,7 @@
         .content {
             flex: 6;
             padding: 20px;
+            margin-left: 250px;
         }
 
         .search-bar button {
@@ -202,6 +203,10 @@
             justify-content: space-between;
             align-items: center;
             gap: 20px;
+            position: fixed;
+            left: 0;
+            width: 100%;
+            z-index: 10;
         }
 
         .navbar .menu {
@@ -218,6 +223,10 @@
 
         .navbar a:hover {
             color: #6c757d;
+        }
+
+        .content{
+            margin-top: 150px;
         }
 
         .search-bar {
@@ -260,6 +269,13 @@
             padding: 20px;
             border-right: 1px solid #ddd;
             gap: 25px;
+            margin-top: 127px;
+            position: fixed;
+            left: 0;
+            width: 250px;
+            height: 70vh;
+            overflow-y: auto;
+            z-index: 10;
         }
 
         .sub-navbar .menu-item {
@@ -360,22 +376,76 @@
         }
 
 
+        .company-listings {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center; /* Đảm bảo các công ty được căn giữa */
+        }
+
+        .company-card {
+            flex: 1 1 calc(33.333% - 20px);
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .company-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .company-card h4 {
+            margin: 0 0 10px;
+            color: #004085;
+            font-size: 1.2rem;
+        }
+
+        .company-card p {
+            margin: 0 0 10px;
+            font-size: 1rem;
+            color: #666; /* Xám nhạt cho mô tả */
+        }
+
+        .company-card .apply-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            color: white;
+            background-color: #007bff; /* Màu xanh dương cho nút */
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .company-card .apply-btn:hover {
+            background-color: #0056b3; /* Màu xanh dương đậm hơn khi hover */
+        }
+
+
         footer {
             text-align: center;
             padding: 20px 0;
             background-color: #333;
             color: white;
             margin-top: 40px;
+            z-index: 20;
         }
     </style>
 </head>
 
 <body>
+
 <header>
     <a href="/">Workmatch</a>
     <div>
         <a href="/login">Đăng nhập</a>
-        <a href="/register/candidate">Đăng ký
+        <a href="/register/candidate">Đăng ký </a>
         <a href="/register/company">Đăng ký tuyển dụng</a>
     </div>
 </header>
@@ -414,12 +484,14 @@
 
         <!-- Skills -->
         <div class="menu-item">Skills</div>
-        <div class="checkbox-group">
-            <label><input type="checkbox" name="skills" value="JavaScript"> JavaScript</label>
-            <label><input type="checkbox" name="skills" value="Python"> Python</label>
-            <label><input type="checkbox" name="skills" value="React"> React</label>
-            <label><input type="checkbox" name="skills" value="Node.js"> Node.js</label>
+        <div class="checkbox-group" style="max-height: 400px; overflow-y: auto;">
+            <!-- Lặp qua danh sách kỹ năng từ model -->
+            <th:block th:each="skill : ${skills}">
+                <label><input type="checkbox" name="skills" th:value="${skill.getId()}"> <span th:text="${skill.getSkillName()}"></span></label>
+            </th:block>
         </div>
+
+
     </div>
 
     <!-- Main content -->
@@ -480,6 +552,23 @@
                 </div>
             </div>
         </section>
+
+        <br>
+
+        <section id="company-listings">
+            <h2 style="text-align: center; margin-bottom: 40px; font-size: 2rem; font-weight: 600; color: #004085;">Các Công Ty Đề Xuất</h2>
+            <div class="company-listings" style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center;">
+                <!-- Lặp qua danh sách công ty -->
+                <div th:each="company : ${randomCompanies}" class="company-card" style="border: 1px solid #ddd; padding: 20px; width: 250px; text-align: center; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s, box-shadow 0.3s;">
+                    <h4 th:text="${company.getCompName()}" style="font-size: 1.3rem; margin-bottom: 15px; color: #004085;"></h4>
+                    <p th:text="${company.getAbout()}" style="font-size: 1rem; margin-bottom: 10px; color: #666;"></p>
+                    <p th:text="${company.getAddress()}" style="font-size: 0.9rem; color: #888;"></p>
+                </div>
+            </div>
+        </section>
+
+
+
     </div>
 </div>
 
