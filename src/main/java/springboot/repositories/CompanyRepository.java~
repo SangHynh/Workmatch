@@ -8,5 +8,5 @@ import springboot.models.Company;
 public interface CompanyRepository extends JpaRepository<Company, Long> {
 
     Page<Company> findByCompNameContainingIgnoreCaseOrAddressContainingIgnoreCase(String compName, String address, Pageable pageable);
-    
+
 }

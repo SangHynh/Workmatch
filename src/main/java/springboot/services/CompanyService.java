@@ -43,6 +43,21 @@ public class CompanyService {
         return companyRepository.findByCompNameContainingIgnoreCaseOrAddressContainingIgnoreCase(keyword, keyword, pageable);
     }
 
+    // Lọc công ty theo thành phố
+    public Page<Company> getCompaniesByCity(Long cityId, int page, int size, String sortBy, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return companyRepository.findByCityId(cityId, pageable);
+    }
+
+    // Tìm kiếm công ty theo tên và thành phố
+    public Page<Company> searchCompaniesByCity(String keyword, Long cityId, int page, int size, String sortBy, String sortDirection) {
+        Sort sort = sortDirection.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        return companyRepository.findByCompNameContainingIgnoreCaseAndCityId(keyword, cityId, pageable);
+    }
+
+
 
 
 
