@@ -1,0 +1,196 @@
+[
+
+
+ --- Các tài khoản admin và candidate là 123456
+
+  {
+    "email": "info@fpt.com.vn",
+    "password": "fpt123",
+    "compName": "FPT Corporation",
+    "about": "FPT là tập đoàn công nghệ hàng đầu tại Việt Nam, chuyên cung cấp các dịch vụ công nghệ thông tin và viễn thông.",
+    "phone": "024 7300 8888",
+    "city": "Hà Nội",
+    "address": "17 Phố Duy Tân, Cầu Giấy, Hà Nội",
+    "webUrl": "https://www.fpt.com.vn"
+  },
+  {
+    "email": "contact@vng.com.vn",
+    "password": "vng123",
+    "compName": "VNG Corporation",
+    "about": "VNG là công ty hàng đầu về giải pháp công nghệ tại Việt Nam, với các sản phẩm tiêu biểu như Zalo, Zing MP3.",
+    "phone": "028 7300 8282",
+    "city": "Hồ Chí Minh",
+    "address": "60 Trường Sơn, Phường 2, Tân Bình, TP.HCM",
+    "webUrl": "https://www.vng.com.vn"
+  },
+  {
+    "email": "info@tinhvan.com",
+    "password": "tinhvan123",
+    "compName": "Tinh Vân Group",
+    "about": "Tinh Vân cung cấp các giải pháp phần mềm và dịch vụ công nghệ tiên tiến cho các doanh nghiệp.",
+    "phone": "024 3971 8200",
+    "city": "Hà Nội",
+    "address": "Số 2, ngõ 73, Nguyễn Thái Học, Hà Nội",
+    "webUrl": "https://www.tinhvan.com"
+  },
+  {
+    "email": "contact@vnpt.com.vn",
+    "password": "vnpt123",
+    "compName": "VNPT Group",
+    "about": "VNPT là công ty viễn thông lớn của Việt Nam, cung cấp các dịch vụ điện thoại, internet và giải pháp công nghệ.",
+    "phone": "024 8000 8000",
+    "city": "Hà Nội",
+    "address": "57 Huỳnh Thúc Kháng, Đống Đa, Hà Nội",
+    "webUrl": "https://www.vnpt.com.vn"
+  },
+  {
+    "email": "info@bidv.com.vn",
+    "password": "bidv123",
+    "compName": "Bidv Technology Solutions",
+    "about": "Bidv cung cấp các dịch vụ công nghệ cho ngành ngân hàng, bao gồm các giải pháp tài chính điện tử.",
+    "phone": "024 2220 7979",
+    "city": "Hà Nội",
+    "address": "35 Hồ Tùng Mậu, Cầu Giấy, Hà Nội",
+    "webUrl": "https://www.bidv.com.vn"
+  },
+  {
+    "email": "contact@tigo.com.vn",
+    "password": "tigo123",
+    "compName": "Tigo Việt Nam",
+    "about": "Tigo chuyên cung cấp các giải pháp phần mềm cho các doanh nghiệp vừa và nhỏ tại Việt Nam.",
+    "phone": "028 6250 4700",
+    "city": "Hồ Chí Minh",
+    "address": "30-32 Đường Lê Lợi, Quận 1, TP.HCM",
+    "webUrl": "https://www.tigo.com.vn"
+  },
+  {
+    "email": "support@hanoitech.com.vn",
+    "password": "hanoitech123",
+    "compName": "HanoiTech",
+    "about": "HanoiTech cung cấp các dịch vụ giải pháp phần mềm và công nghệ tiên tiến cho doanh nghiệp.",
+    "phone": "024 3892 8888",
+    "city": "Hà Nội",
+    "address": "Số 10, ngõ 81, Phố Nguyễn Khang, Cầu Giấy, Hà Nội",
+    "webUrl": "https://www.hanoitech.com.vn"
+  },
+  {
+    "email": "info@momo.vn",
+    "password": "momo123",
+    "compName": "Momo",
+    "about": "Momo là một ứng dụng ví điện tử nổi tiếng tại Việt Nam, cung cấp các dịch vụ thanh toán và chuyển tiền online.",
+    "phone": "024 7304 8888",
+    "city": "Hà Nội",
+    "address": "Số 5, ngõ 23, Lê Thánh Tông, Hà Nội",
+    "webUrl": "https://www.momo.vn"
+  },
+  {
+    "email": "contact@tavico.vn",
+    "password": "tavico123",
+    "compName": "Tavico",
+    "about": "Tavico cung cấp các giải pháp phần mềm quản lý doanh nghiệp và thương mại điện tử tại Việt Nam.",
+    "phone": "028 3835 1268",
+    "city": "Hồ Chí Minh",
+    "address": "23 Lê Lợi, Quận 1, TP.HCM",
+    "webUrl": "https://www.tavico.vn"
+  },
+  {
+    "email": "info@alibaba.vn",
+    "password": "alibaba123",
+    "compName": "Alibaba Việt Nam",
+    "about": "Alibaba là một công ty thương mại điện tử hàng đầu, cung cấp các dịch vụ kết nối người bán và người mua.",
+    "phone": "028 7300 0000",
+    "city": "Hồ Chí Minh",
+    "address": "123 Lê Duẩn, Quận 1, TP.HCM",
+    "webUrl": "https://www.alibaba.vn"
+  },
+  {
+    "email": "info@fsoft.com.vn",
+    "password": "fsoft123",
+    "compName": "FPT Software",
+    "about": "FPT Software là công ty phần mềm thuộc Tập đoàn FPT, chuyên cung cấp các giải pháp phần mềm cho các doanh nghiệp.",
+    "phone": "024 7301 8585",
+    "city": "Hà Nội",
+    "address": "FPT Tower, 17 Duy Tân, Cầu Giấy, Hà Nội",
+    "webUrl": "https://www.fpt-software.com"
+  },
+  {
+    "email": "contact@eivietnam.vn",
+    "password": "eivietnam123",
+    "compName": "EI Vietnam",
+    "about": "EI Vietnam là công ty chuyên cung cấp các giải pháp phần mềm ERP cho doanh nghiệp tại Việt Nam.",
+    "phone": "028 7309 5555",
+    "city": "Hồ Chí Minh",
+    "address": "Số 12, Nguyễn Thị Minh Khai, Quận 1, TP.HCM",
+    "webUrl": "https://www.eivietnam.vn"
+  },
+  {
+    "email": "info@techcombank.vn",
+    "password": "techcom123",
+    "compName": "Techcombank",
+    "about": "Techcombank cung cấp các giải pháp ngân hàng hiện đại với công nghệ tiên tiến.",
+    "phone": "024 3941 0940",
+    "city": "Hà Nội",
+    "address": "15 Phan Chu Trinh, Hoàn Kiếm, Hà Nội",
+    "webUrl": "https://www.techcombank.com.vn"
+  },
+  {
+    "email": "info@vnsoft.com.vn",
+    "password": "vnsoft123",
+    "compName": "VNSoft",
+    "about": "VNSoft chuyên cung cấp các dịch vụ tư vấn và phát triển phần mềm cho các doanh nghiệp.",
+    "phone": "028 3823 6999",
+    "city": "Hồ Chí Minh",
+    "address": "17 Nguyễn Cảnh Chân, Quận 1, TP.HCM",
+    "webUrl": "https://www.vnsoft.com.vn"
+  },
+  {
+    "email": "support@thegioididong.com",
+    "password": "thegioididong123",
+    "compName": "Thế Giới Di Động",
+    "about": "Thế Giới Di Động là chuỗi cửa hàng bán lẻ điện thoại và các thiết bị điện tử tại Việt Nam.",
+    "phone": "1900 2091",
+    "city": "Hồ Chí Minh",
+    "address": "235 Phan Đình Phùng, Quận Phú Nhuận, TP.HCM",
+    "webUrl": "https://www.thegioididong.com"
+  },
+  {
+    "email": "info@sendo.vn",
+    "password": "sendo123",
+    "compName": "Sendo",
+    "about": "Sendo là sàn giao dịch thương mại điện tử hàng đầu tại Việt Nam.",
+    "phone": "1900 1550",
+    "city": "Hồ Chí Minh",
+    "address": "12 Lê Lai, Quận 1, TP.HCM",
+    "webUrl": "https://www.sendo.vn"
+  },
+  {
+    "email": "info@vccorp.vn",
+    "password": "vccorp123",
+    "compName": "VCCorp",
+    "about": "VCCorp là công ty hàng đầu trong lĩnh vực công nghệ số tại Việt Nam.",
+    "phone": "024 7305 8888",
+    "city": "Hà Nội",
+    "address": "Số 10, Đặng Văn Ngữ, Đống Đa, Hà Nội",
+    "webUrl": "https://www.vccorp.vn"
+  },
+  {
+    "email": "contact@flashtel.vn",
+    "password": "flashtel123",
+    "compName": "FlashTel",
+    "about": "FlashTel chuyên cung cấp các giải pháp công nghệ viễn thông và dịch vụ di động tại Việt Nam.",
+    "phone": "028 3835 1268",
+    "city": "Hồ Chí Minh",
+    "address": "34 Nguyễn Văn Trỗi, Quận Phú Nhuận, TP.HCM",
+    "webUrl": "https://www.flashtel.vn"
+  },
+  {
+    "email": "support@tukorea.vn",
+    "password": "tukorea123",
+    "compName": "Tukorea",
+    "about": "Tukorea là công ty công nghệ chuyên cung cấp các dịch vụ công nghệ thông tin và phần mềm cho các doanh nghiệp.",
+    "phone": "028 3823 6000",
+    "city": "Hồ Chí Minh",
+    "address": "Số 2, Lý Chính Thắng, Quận 3, TP.HCM",
+    "webUrl": "https://www.tukorea.vn"
+  }
+]
