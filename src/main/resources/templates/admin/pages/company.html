@@ -66,7 +66,7 @@
                             <td th:text="${company.id}"></td>
                             <td th:text="${company.compName}"></td>
                             <td th:text="${company.phone}"></td>
-                            <td th:text="${company.email}"></td>
+                            <td><a th:href="'mailto:' + ${company.email}" th:text="${company.email}"> </a></td>
                             <td>
                                 <a th:href="@{${company.webUrl}}" target="_blank" th:text="${company.webUrl}"></a>
                             </td>

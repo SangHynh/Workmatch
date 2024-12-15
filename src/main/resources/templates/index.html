@@ -121,12 +121,33 @@
         }
 
         .carousel-item {
+            position: relative;
             text-align: center;
             padding: 50px 20px;
-            background: linear-gradient(to right, #007bff, #0056b3);
+            background-image: url('https://echopath.com/wp-content/uploads/2018/11/working-wirelessly-on-a-laptop-header-image-800-optimized.jpg');
+            background-size: cover;
+            background-position: center;
             color: white;
             border-radius: 10px;
         }
+
+        .carousel-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Màu overlay với độ mờ */
+            border-radius: 10px;
+            z-index: 1; /* Đảm bảo overlay nằm trên ảnh nền */
+        }
+
+        .carousel-item > * {
+            position: relative;
+            z-index: 2; /* Nội dung nằm trên overlay */
+        }
+
 
         .carousel-item h1 {
             font-size: 3rem;
@@ -138,15 +159,15 @@
             margin: 20px 0;
         }
 
-         body {
-             margin: 0;
-             font-family: 'Arial', sans-serif;
-             background-color: #f4f7fc;
-             color: #333;
-         }
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+        }
 
         header {
-            background: linear-gradient(to right, #007bff, #0056b3);
+            background: linear-gradient(to right, #f8b500, #f76d57); /* Gradient từ màu vàng ấm sang cam nhẹ */
             color: white;
             display: flex;
             justify-content: space-between;
@@ -154,6 +175,7 @@
             padding: 10px 20px;
             font-size: 1.2rem;
         }
+
 
         header div {
             display: flex;
@@ -169,7 +191,7 @@
         }
 
         header a:hover {
-            color: #ffcc00;
+            color: #ff8c42;
         }
 
         .navbar {
@@ -188,14 +210,14 @@
         }
 
         .navbar a {
-            color: #007bff;
+            color: #f76d57;
             text-decoration: none;
             font-size: 1rem;
             transition: color 0.3s;
         }
 
         .navbar a:hover {
-            color: #0056b3;
+            color: #6c757d;
         }
 
         .search-bar {
@@ -216,17 +238,19 @@
         .search-bar button {
             padding: 10px 20px;
             font-size: 1rem;
-            background-color: #007bff;
+            background-color: #f8b500;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.3s;
         }
 
         .search-bar button:hover {
-            background-color: #0056b3;
+            background-color: #f76d57;
+            transform: scale(1.05);
         }
+
 
         .sub-navbar {
             display: flex;
@@ -273,17 +297,19 @@
             padding: 15px 30px;
             font-size: 1rem;
             color: white;
-            background-color: #28a745;
+            background-color: #f8b500;
             border-radius: 25px;
             text-decoration: none;
             margin-top: 20px;
             transition: background-color 0.3s, transform 0.3s;
+            opacity: 0.85;
         }
 
         .btn:hover {
-            background-color: #218838;
+            background-color: #f76d57;
             transform: translateY(-5px);
         }
+
 
         .job-listings {
             display: flex;
@@ -308,13 +334,13 @@
 
         .job-card h3 {
             margin: 0 0 10px;
-            color: #007bff;
+            color: #004085;
         }
 
         .job-card p {
             margin: 0 0 10px;
             font-size: 0.9rem;
-            color: #555;
+            color: #666; /* Xám nhạt hơn, dễ đọc */
         }
 
         .job-card .apply-btn {
@@ -323,15 +349,16 @@
             padding: 10px 20px;
             font-size: 0.9rem;
             color: white;
-            background-color: #007bff;
+            background-color: #28a745; /* Màu xanh lá nhẹ, tạo sự khác biệt với header */
             border-radius: 20px;
             text-decoration: none;
             transition: background-color 0.3s;
         }
 
         .job-card .apply-btn:hover {
-            background-color: #0056b3;
+            background-color: #218838; /* Màu xanh lá đậm hơn khi hover */
         }
+
 
         footer {
             text-align: center;
@@ -347,23 +374,23 @@
 <header>
     <a href="/">Workmatch</a>
     <div>
-        <a href="/login">Login</a>
-        <a href="/register/candidate">Register</a>
+        <a href="/login">Đăng nhập</a>
+        <a href="/register/candidate">Đăng ký
+        <a href="/register/company">Đăng ký tuyển dụng</a>
     </div>
 </header>
 
 <nav class="navbar">
     <div class="menu">
-        <a href="#companies">Companies</a>
-        <a href="#jobs">Jobs</a>
-        <a href="#cv">CV Profiles</a>
+        <a href="#companies">Công ty</a>
+        <a href="#jobs">Công việc</a>
+        <a href="#cv">Hồ sơ</a>
     </div>
     <div class="search-bar">
-        <input type="text" placeholder="Search for jobs, companies...">
+        <input type="text" placeholder="Tìm kiêm công việc, công ty ...">
         <button type="button">Search</button>
     </div>
 </nav>
-
 
 
 <div class="main-container">
@@ -371,29 +398,19 @@
     <!-- Sub navbar -->
 
     <div class="sub-navbar">
-        <!-- Categories -->
-        <div class="menu-item">Categories</div>
+        <div class="menu-item">Thành phố</div>
         <div class="dropdown">
-            <select>
-                <option>Software</option>
-                <option>IT</option>
-                <option>Marketing</option>
-                <option>Business</option>
-                <option>Design</option>
+            <select name="city">
+                <!-- Thêm lựa chọn "Tất cả thành phố" đầu tiên -->
+                <option value="" th:text="'Tất cả'"></option>
+
+                <!-- Lặp qua danh sách thành phố từ model -->
+                <th:block th:each="city : ${cities}">
+                    <option th:value="${city.id}" th:text="${city.name}"></option>
+                </th:block>
             </select>
         </div>
 
-        <!-- Locations -->
-        <div class="menu-item">Locations</div>
-        <div class="dropdown">
-            <select>
-                <option>New York</option>
-                <option>London</option>
-                <option>Berlin</option>
-                <option>Paris</option>
-                <option>Tokyo</option>
-            </select>
-        </div>
 
         <!-- Skills -->
         <div class="menu-item">Skills</div>
@@ -402,28 +419,6 @@
             <label><input type="checkbox" name="skills" value="Python"> Python</label>
             <label><input type="checkbox" name="skills" value="React"> React</label>
             <label><input type="checkbox" name="skills" value="Node.js"> Node.js</label>
-        </div>
-
-        <!-- Experience -->
-        <div class="menu-item">Experience</div>
-        <div class="dropdown">
-            <select>
-                <option>1-3 years</option>
-                <option>3-5 years</option>
-                <option>5-7 years</option>
-                <option>7+ years</option>
-            </select>
-        </div>
-
-        <!-- Education -->
-        <div class="menu-item">Education</div>
-        <div class="dropdown">
-            <select>
-                <option>High School</option>
-                <option>Bachelor's Degree</option>
-                <option>Master's Degree</option>
-                <option>PhD</option>
-            </select>
         </div>
     </div>
 
@@ -434,28 +429,28 @@
             <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <h1>Find Your Dream Job</h1>
-                        <p>Browse through thousands of job opportunities and apply today!</p>
-                        <a href="#job-listings" class="btn">Explore Jobs</a>
+                        <h1>Tìm Kiếm Công Việc Mơ Ước Của Bạn</h1>
+                        <p>Duyệt qua hàng nghìn cơ hội việc làm và ứng tuyển ngay hôm nay!</p>
+                        <a href="#job-listings" class="btn">Khám Phá Các Công Việc</a>
                     </div>
                     <div class="carousel-item">
-                        <h1>Join Top Companies</h1>
-                        <p>Work with industry leaders and grow your career.</p>
-                        <a href="#job-listings" class="btn">Explore Jobs</a>
+                        <h1>Gia Nhập Các Công Ty Hàng Đầu</h1>
+                        <p>Làm việc với các nhà lãnh đạo ngành và phát triển sự nghiệp của bạn.</p>
+                        <a href="#job-listings" class="btn">Khám Phá Các Công Việc</a>
                     </div>
                     <div class="carousel-item">
-                        <h1>Your Future Awaits</h1>
-                        <p>Find a job that aligns with your goals and aspirations.</p>
-                        <a href="#job-listings" class="btn">Explore Jobs</a>
+                        <h1>Tương Lai Của Bạn Đang Chờ</h1>
+                        <p>Tìm công việc phù hợp với mục tiêu và khát vọng của bạn.</p>
+                        <a href="#job-listings" class="btn">Khám Phá Các Công Việc</a>
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
+                    <span class="visually-hidden">Trước</span>
                 </button>
                 <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
+                    <span class="visually-hidden">Tiếp Theo</span>
                 </button>
             </div>
         </section>

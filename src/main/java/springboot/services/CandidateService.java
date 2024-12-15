@@ -35,5 +35,11 @@ public class CandidateService {
     }
 
 
+    public Candidate registerCandidate(Candidate candidate) {
+        return candidateRepository.save(candidate);
+    }
+
+
+
 
 }

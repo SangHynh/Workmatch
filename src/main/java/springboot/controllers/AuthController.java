@@ -5,13 +5,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import springboot.dtos.CandidateRegisterDTO;
 import springboot.dtos.CompanyRegisterDTO;
 import springboot.enums.Role;
 import springboot.dtos.UserRegisterDTO;
+import springboot.models.Candidate;
 import springboot.models.City;
 import springboot.models.Company;
 import springboot.models.User;
 import springboot.repositories.CityRepository;
+import springboot.services.CandidateService;
+import springboot.services.CityService;
 import springboot.services.CompanyService;
 import springboot.services.UserService;
 
@@ -28,7 +32,10 @@ public class AuthController {
     private CompanyService companyService;
 
     @Autowired
-    private CityRepository cityRepository;
+    private CityService cityService;
+
+    @Autowired
+    private CandidateService candidateService;
 
     @GetMapping("/login")
     public String showLoginPage() {
@@ -93,15 +100,48 @@ public class AuthController {
         return "/public/login";
     }
 
+
+    @GetMapping("/register/company")
+    public String showCompanyRegisterPage(Model model) {
+        // Lấy danh sách thành phố từ service
+        List<City> cities = cityService.getAllCities();
+
+        // Thêm danh sách thành phố vào model
+        model.addAttribute("cities", cities);
+
+        // Thêm DTO cho form đăng ký
+        model.addAttribute("companyRegisterDTO", new CompanyRegisterDTO());
+
+        return "/public/company-register";
+    }
+
+    @GetMapping("/register/candidate")
+    public String showCandidateRegisterPage(Model model) {
+        // Lấy danh sách thành phố từ service
+        List<City> cities = cityService.getAllCities();
+
+        // Thêm danh sách thành phố vào model
+        model.addAttribute("cities", cities);
+
+        // Thêm DTO cho form đăng ký
+        model.addAttribute("companyRegisterDTO", new CompanyRegisterDTO());
+
+        return "/public/candidate-register";
+    }
+
+
     @PostMapping("/register/company")
     public String handleCompanyRegister(@ModelAttribute CompanyRegisterDTO companyRegisterDTO, Model model) {
+
         // Kiểm tra nếu mật khẩu xác nhận khớp với mật khẩu
         if (!companyRegisterDTO.getPassword().equals(companyRegisterDTO.getConfirmPassword())) {
             model.addAttribute("error", "Passwords do not match.");
             return "/public/register/company-register";
         }
 
-        List<City> cities = cityRepository.findAll();
+        // Lấy danh sách thành phố từ CityService
+        List<City> cities = cityService.getAllCities();
+        System.out.println("Cities: " + cities);
         model.addAttribute("cities", cities);
 
         // Tạo đối tượng User cho công ty
@@ -139,6 +179,58 @@ public class AuthController {
             userService.deleteUser(newUser);
             model.addAttribute("error", "An error occurred while registering the company.");
             return "/public/company-register";
+        }
+    }
+
+
+    @PostMapping("/register/candidate")
+    public String handleCandidateRegister(@ModelAttribute CandidateRegisterDTO candidateRegisterDTO, Model model) {
+        // Kiểm tra nếu mật khẩu xác nhận khớp với mật khẩu
+        if (!candidateRegisterDTO.getPassword().equals(candidateRegisterDTO.getConfirmPassword())) {
+            model.addAttribute("error", "Passwords do not match.");
+            return "/public/register/candidate-register";
+        }
+
+        // Lấy danh sách thành phố từ CityService
+        List<City> cities = cityService.getAllCities();
+        System.out.println("Cities: " + cities);
+        model.addAttribute("cities", cities);
+
+
+        // Tạo đối tượng User cho ứng viên
+        User newUser = new User();
+        newUser.setEmail(candidateRegisterDTO.getEmail());
+        newUser.setPassword(candidateRegisterDTO.getPassword());
+        newUser.setRole(Role.CANDIDATE);
+
+        try {
+            // Lưu thông tin người dùng vào cơ sở dữ liệu
+            userService.registerUser(newUser);
+
+            // Tạo đối tượng Candidate
+            Candidate newCandidate = new Candidate();
+            newCandidate.setFullName(candidateRegisterDTO.getFullName());
+            newCandidate.setPhone(candidateRegisterDTO.getPhone());
+            newCandidate.setDob(candidateRegisterDTO.getDob());
+            newCandidate.setAddress(candidateRegisterDTO.getAddress());
+            newCandidate.setCity(candidateRegisterDTO.getCity());
+
+            // Lưu thông tin ứng viên vào cơ sở dữ liệu
+            candidateService.registerCandidate(newCandidate);
+
+            // Liên kết ứng viên với người dùng
+            newUser.setCandidate(newCandidate);
+            userService.updateCandidateAccount(newUser);
+
+            model.addAttribute("successMessage", "Candidate registration successful! Please log in.");
+            return "/public/login";
+
+        } catch (Exception e) {
+            // Nếu có lỗi trong quá trình tạo ứng viên, xóa tài khoản người dùng đã tạo
+            System.out.println(e.getMessage());
+            userService.deleteUser(newUser);
+            model.addAttribute("error", "An error occurred while registering the candidate.");
+            return "/public/candidate-register";
         }
     }
 

@@ -19,11 +19,17 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    // Register a new user by encoding the password
     public User registerUser(User user) {
+        // Kiểm tra nếu email đã tồn tại trong hệ thống
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new RuntimeException("Email already exists.");
+        }
+
+        // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
+
 
     // Find a user by email
     public User findByEmail(String email) {
@@ -41,6 +47,15 @@ public class UserService {
             userRepository.updateCompanyAccount(user.getId(), user.getCompany());
         } else {
             throw new IllegalArgumentException("User or linked company cannot be null");
+        }
+    }
+
+    // Update user's candidate account
+    public void updateCandidateAccount(User user) {
+        if (user != null && user.getCandidate() != null) {
+            userRepository.updateCandidateAccount(user.getId(), user.getCandidate());
+        } else {
+            throw new IllegalArgumentException("User or linked candidate cannot be null");
         }
     }
 

@@ -1,13 +1,241 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Workmatch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký ứng viên</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .register-container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid #e2e2e2;
+        }
+
+        .register-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            color: #333;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: #6c63ff;
+            outline: none;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-next {
+            background-color: #6c63ff;
+            color: white;
+        }
+
+        .btn-next:hover {
+            background-color: #5a52d1;
+        }
+
+        .btn-prev {
+            background-color: #ccc;
+            color: #333;
+        }
+
+        .btn-prev:hover {
+            background-color: #b3b3b3;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+            .register-container {
+                padding: 20px;
+            }
+
+            .register-container h2 {
+                font-size: 24px;
+            }
+
+            .btn {
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
-ac
+<div class="register-container">
+    <h2>Đăng ký tài khoản ứng viên</h2>
+    <form action="#" th:action="@{/register/candidate}" method="post">
+        <!-- Bước 1 -->
+        <div class="step step-1">
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Mật khẩu</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="input-group">
+                <label for="confirm-password">Nhập lại mật khẩu</label>
+                <input type="password" id="confirm-password" name="confirmPassword" required>
+            </div>
+        </div>
+
+        <!-- Bước 2 -->
+        <div class="step step-2 hidden">
+            <div class="input-group">
+                <label for="full-name">Họ và tên</label>
+                <input type="text" id="full-name" name="fullName" required>
+            </div>
+            <div class="input-group">
+                <label for="dob">Ngày sinh</label>
+                <input type="date" id="dob" name="dob" required>
+            </div>
+        </div>
+
+        <!-- Bước 3 -->
+        <div class="step step-3 hidden">
+            <div class="input-group">
+                <label for="phone">Số điện thoại</label>
+                <input id="phone" name="phone" required />
+            </div>
+            <div class="input-group">
+                <label for="city">Thành phố</label>
+                <select id="city" name="city.id" required>
+                    <th:block th:each="city : ${cities}">
+                        <option th:value="${city.getId()}" th:text="${city.getName()}"></option>
+                    </th:block>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="address">Địa chỉ</label>
+                <textarea id="address" name="address" rows="2" required></textarea>
+            </div>
+        </div>
+
+        <!-- Nút điều hướng -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-prev hidden">Quay về</button>
+            <button type="button" class="btn btn-next">Tiếp theo</button>
+            <button type="submit" class="btn btn-next hidden">Đăng ký</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    const steps = document.querySelectorAll('.step');
+    const nextBtn = document.querySelectorAll('.btn-next');
+    const prevBtn = document.querySelectorAll('.btn-prev');
+    let currentStep = 0;
+
+    function updateStep() {
+        steps.forEach((step, index) => {
+            step.classList.toggle('hidden', index !== currentStep);
+        });
+        prevBtn[0].classList.toggle('hidden', currentStep === 0);
+        nextBtn[0].classList.toggle('hidden', currentStep === steps.length - 1);
+        nextBtn[1].classList.toggle('hidden', currentStep !== steps.length - 1);
+    }
+
+    function validateStep(step) {
+        const inputs = step.querySelectorAll('input[required], textarea[required]');
+        for (let input of inputs) {
+            if (!input.value.trim()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    nextBtn.forEach(button => button.addEventListener('click', () => {
+        const currentStepElement = steps[currentStep];
+
+        // Kiểm tra mật khẩu khớp nếu đang ở bước 1
+        if (currentStep === 0) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            if (password !== confirmPassword) {
+                alert("Mật khẩu và nhập lại mật khẩu không khớp. Vui lòng kiểm tra lại.");
+                return;
+            }
+        }
+
+        // Kiểm tra các trường dữ liệu nếu không phải bước 1
+        if (validateStep(currentStepElement)) {
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                updateStep();
+            }
+        } else {
+            alert("Vui lòng điền vào đầy đủ.");
+        }
+    }));
+
+
+    prevBtn[0].addEventListener('click', () => {
+        if (currentStep > 0) {
+            currentStep--;
+            updateStep();
+        }
+    });
+
+    updateStep();
+
+</script>
 </body>
 </html>

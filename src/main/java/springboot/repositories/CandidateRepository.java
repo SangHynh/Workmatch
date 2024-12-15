@@ -10,12 +10,4 @@ import java.util.List;
 
 public interface CandidateRepository extends JpaRepository<Candidate, Long> {
 
-    List<Candidate> findByEmail(String email);
-
-    List<Candidate> findByFullNameContainingIgnoreCase(String fullName);
-
-    List<Candidate> findByPhone(String phone);
-
-    List<Candidate> findByDobBetween(LocalDate startDate, LocalDate endDate);
-
 }

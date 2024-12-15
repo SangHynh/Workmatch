@@ -34,7 +34,7 @@ public class Company {
     private String address;
 
     @ManyToOne
-    @JoinColumn(name = "city_id", nullable = false)
+    @JoinColumn(name = "city_id", referencedColumnName = "id", nullable = false)
     private City city;
 
     @Transient // Không lưu vào cơ sở dữ liệu

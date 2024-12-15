@@ -44,11 +44,20 @@ public class UserService {
         }
     }
 
-    // Get email by company ID
-    public String getEmailByCompanyId(Long companyId) {
-        // Tìm User dựa trên company_id và role = COMPANY
-        User user = userRepository.findByCompanyIdAndRole(companyId, Role.COMPANY);
-        return user != null ? user.getEmail() : null;
+    // Update user's candidate account
+    public void updateCandidateAccount(User user) {
+        if (user != null && user.getCandidate() != null) {
+            userRepository.updateCandidateAccount(user.getId(), user.getCandidate());
+        } else {
+            throw new IllegalArgumentException("User or linked candidate cannot be null");
+        }
     }
+
+    // Lấy email của User bằng companyId
+    public String getEmailByCompanyId(Long companyId) {
+        // Lấy email của User qua companyId
+        return userRepository.findEmailByCompanyId(companyId);
+    }
+
 
 }

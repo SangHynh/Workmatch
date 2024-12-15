@@ -203,7 +203,7 @@
                 return false;
             }
         }
-        return true;  
+        return true;
     }
 
     nextBtn.forEach(button => button.addEventListener('click', () => {
@@ -214,7 +214,7 @@
                 updateStep();
             }
         } else {
-            alert("Please fill in all required fields.");
+            alert("Vui lòng điền vào đầy đủ.");
         }
     }));
 

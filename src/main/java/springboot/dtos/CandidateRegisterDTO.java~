@@ -1,0 +1,4 @@
+package springboot.dtos;
+
+public class CandidateRegisterDTO {
+}

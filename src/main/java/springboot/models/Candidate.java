@@ -15,13 +15,11 @@ import java.time.LocalDate;
 public class Candidate {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "dob", nullable = false)
     private LocalDate dob;
-
-    @Column(name = "email", nullable = false)
-    private String email;
 
     @Column(name = "full_name", nullable = false)
     private String fullName;
@@ -30,7 +28,7 @@ public class Candidate {
     private String phone;
 
     @ManyToOne
-    @JoinColumn(name = "city_id", nullable = false)
+    @JoinColumn(name = "city_id", referencedColumnName = "id", nullable = false)
     private City city;
 
     @Column(name = "address", nullable = false)

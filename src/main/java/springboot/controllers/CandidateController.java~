@@ -16,6 +16,7 @@ public class CandidateController {
 //    @Autowired
 //    private CandidateService candidateService;
 
+    @GetMapping
     public String candidate(Model model) {
         return "candidates/index";
     }
