@@ -57,7 +57,7 @@
                         <!-- Lặp qua danh sách công ty -->
                         <tr th:each="company, iterStat : ${companyPage.content}"
                             th:attr="style=${iterStat.index % 2 == 0} ? 'background-color: #f9f9f9;' : 'background-color: #ffffff;'">
-                            <td th:text="${company.id}"></td>
+                            <td th:text="${company.id}"></td>  -->
                             <td th:text="${company.compName}"></td>
                             <td th:text="${company.phone}"></td>
                             <td>

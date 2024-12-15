@@ -155,9 +155,9 @@
             </div>
             <div class="input-group">
                 <label for="company-city">Thành phố</label>
-                <select id="company-city" name="city" required>
+                <select id="company-city" name="city.id" required>
                     <th:block th:each="city : ${cities}">
-                        <option th:value="${city.getName()}" th:text="${city.getName()}"></option>
+                        <option th:value="${city.getId()}" th:text="${city.getName()}"></option>
                     </th:block>
                 </select>
             </div>
@@ -200,10 +200,10 @@
         const inputs = step.querySelectorAll('input[required], textarea[required]');
         for (let input of inputs) {
             if (!input.value.trim()) {
-                return false;  // Return false if any required field is empty
+                return false;
             }
         }
-        return true;  // Return true if all required fields are filled
+        return true;  
     }
 
     nextBtn.forEach(button => button.addEventListener('click', () => {

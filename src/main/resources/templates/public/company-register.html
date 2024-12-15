@@ -200,10 +200,10 @@
         const inputs = step.querySelectorAll('input[required], textarea[required]');
         for (let input of inputs) {
             if (!input.value.trim()) {
-                return false;  // Return false if any required field is empty
+                return false;
             }
         }
-        return true;  // Return true if all required fields are filled
+        return true;
     }
 
     nextBtn.forEach(button => button.addEventListener('click', () => {
