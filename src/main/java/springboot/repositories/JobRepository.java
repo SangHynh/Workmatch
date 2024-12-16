@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import springboot.models.Job;
 
 public interface JobRepository extends JpaRepository<Job, Long> {
@@ -20,4 +21,12 @@ public interface JobRepository extends JpaRepository<Job, Long> {
 
     // Tìm tất cả công việc theo công ty
     Page<Job> findByCompanyId(Long companyId, Pageable pageable);
+
+
+    // Tìm kiếm công việc theo tên công việc và tên công ty
+    @Query("SELECT j FROM Job j WHERE j.jobName LIKE %:jobName% AND j.company.compName LIKE %:companyName%")
+    Page<Job> findByJobNameContainingAndCompany_CompNameContaining(@Param("jobName") String jobName,
+                                                                   @Param("companyName") String companyName,
+                                                                   Pageable pageable);
+
 }

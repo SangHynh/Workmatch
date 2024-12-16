@@ -92,7 +92,7 @@ public class JobController extends BaseController {
     @PostMapping("/company/job/update")
     public String updateJob(@ModelAttribute("job") Job job, @RequestParam("companyId") Long companyId) {
         Company company = companyRepository.findById(companyId).orElse(null);
-        job.setCompany();  // Gán companyId vào job
+        job.setCompany(company);  // Gán companyId vào job
         jobService.updateJob(job);     // Gọi service để cập nhật job
         return "redirect:/company/job";  // Điều hướng đến trang danh sách công việc
     }

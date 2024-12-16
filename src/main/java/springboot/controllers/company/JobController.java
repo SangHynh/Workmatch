@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import springboot.controllers.BaseController;
 import springboot.models.Company;
 import springboot.models.Job;
-import springboot.models.Skill;
-import springboot.services.CompanyService;
 import springboot.services.JobService;
 import springboot.repositories.CompanyRepository;
 

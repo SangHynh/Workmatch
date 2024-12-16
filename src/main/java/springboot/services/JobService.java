@@ -26,6 +26,13 @@ public class JobService {
         return jobRepository.findAll(pageable);
     }
 
+    /* Lấy danh sách công việc theo jobName và companyName */
+    public Page<Job> getAllJobsByJobNameAndCompanyName(String jobName, String companyName, int pageNo, int pageSize, String sortBy, String sortDirection) {
+        Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+        return jobRepository.findByJobNameContainingAndCompany_CompNameContaining(jobName, companyName, pageable);
+    }
+
     public Page<Job> getJobsByCompanyId(Long companyId, int pageNo, int pageSize, String sortBy, String sortDirection) {
         Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
         Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
