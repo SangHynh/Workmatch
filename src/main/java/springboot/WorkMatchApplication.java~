@@ -38,7 +38,6 @@ public class WorkMatchApplication {
         List<Company> randomCompanies = companyService.getRandomCompanies();
         model.addAttribute("randomCompanies", randomCompanies);
 
-        return "company/index";
         return "index";
     }
 

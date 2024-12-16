@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import springboot.models.Job;
 
+import java.util.List;
+
 public interface JobRepository extends JpaRepository<Job, Long> {
 
     // Tìm kiếm công việc theo tên công việc
@@ -29,4 +31,7 @@ public interface JobRepository extends JpaRepository<Job, Long> {
                                                                    @Param("companyName") String companyName,
                                                                    Pageable pageable);
 
+    // Lấy ngẫu nhiên 6 công việc
+    @Query("SELECT j FROM Job j ORDER BY RAND()")
+    List<Job> findRandomJobs(Pageable pageable);
 }

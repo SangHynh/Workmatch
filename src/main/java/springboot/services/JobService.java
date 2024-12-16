@@ -10,6 +10,8 @@ import springboot.models.Job;
 import springboot.repositories.CompanyRepository;
 import springboot.repositories.JobRepository;
 
+import java.util.List;
+
 @Service
 public class JobService {
 
@@ -75,5 +77,12 @@ public class JobService {
     /* Delete job */
     public void deleteJob(Long id) {
         jobRepository.deleteById(id);
+    }
+
+
+    /* Lấy ngẫu nhiên 6 công việc gợi ý */
+    public List<Job> getJobSuggestions() {
+        Pageable pageable = PageRequest.of(0, 6);  // Lấy 6 công việc ngẫu nhiên
+        return jobRepository.findRandomJobs(pageable);
     }
 }
